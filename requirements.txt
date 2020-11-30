@@ -1,0 +1,2 @@
+autoroutes
+git+git@github.com:trollfot/horseman.git#egg=horseman

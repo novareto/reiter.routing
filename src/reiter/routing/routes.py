@@ -1,21 +1,16 @@
-import re
+import collections
 import inspect
+import re
 from http import HTTPStatus
 
 import autoroutes
-import dataclasses
 from horseman.meta import APIView
 from horseman.http import HTTPError
 from horseman.util import view_methods
 
 
-@dataclasses.dataclass
-class Route:
-    path: str
-    method: str
-    endpoint: callable
-    params: dict = dataclasses.field(default_factory=dict)
-    extras: dict = dataclasses.field(default_factory=dict)
+Route = collections.namedtuple('Route', [
+    'path', 'method', 'endpoint', 'params', 'extras'])
 
 
 class Routes(autoroutes.Routes):

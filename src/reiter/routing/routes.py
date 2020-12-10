@@ -36,10 +36,15 @@ class Routes(autoroutes.Routes):
     def route_payload(view, methods: list=None):
         if inspect.isclass(view):
             inst = view()
-            members = view_methods(inst)
             if isinstance(inst, APIView):
+                assert methods is None
+                members = view_methods(inst)
                 for name, func in members:
                     yield name, func
+            else:
+                assert methods is not None
+                for method in methods:
+                    yield method, inst.__call__
         else:
             if methods is None:
                 methods = ['GET']
